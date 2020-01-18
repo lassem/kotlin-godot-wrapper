@@ -1,6 +1,9 @@
+import java.util.*
+
 plugins {
     id("kotlin-multiplatform")
     id("maven-publish")
+    id("com.jfrog.bintray")
 }
 
 group = "org.godotengine.kotlin"
@@ -37,4 +40,31 @@ kotlin {
 
 tasks.build {
     finalizedBy(tasks.publishToMavenLocal)
+}
+
+val bintrayUser: String by project
+val bintrayKey: String by project
+val platform: String by project
+
+if(project.hasProperty("bintrayUser") && project.hasProperty("bintrayKey")
+        && project.hasProperty("platform")) {
+    bintray {
+        user = bintrayUser
+        key = bintrayKey
+        setPublications(platform)
+        pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
+            userOrg = "utopia-rise"
+            repo = "kotlin-godot"
+
+            name = "${project.name}-$platform"
+            vcsUrl = "https://github.com/utopia-rise/kotlin-godot-wrapper"
+            setLicenses("Apache-2.0")
+            version(closureOf<com.jfrog.bintray.gradle.BintrayExtension.VersionConfig> {
+                this.name = project.version.toString()
+                released = Date().toString()
+                description = "Godot library ${project.version}"
+                vcsTag = project.version.toString()
+            })
+        })
+    }
 }

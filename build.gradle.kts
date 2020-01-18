@@ -12,12 +12,12 @@ buildscript {
     }
 
     allprojects {
-        apply(plugin = "idea")
-
         repositories {
             mavenLocal()
             mavenCentral()
             jcenter()
         }
+
+        apply(plugin = "idea")
     }
 }

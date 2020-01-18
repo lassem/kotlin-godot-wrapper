@@ -9,9 +9,6 @@ plugins {
 group = "org.godotengine.kotlin"
 version = "1.0.0"
 
-val bintrayUser: String by project
-val bintrayKey: String by project
-
 kotlin {
     sourceSets {
         sourceSets.create("macosMain")
@@ -49,22 +46,27 @@ tasks.build {
     finalizedBy(tasks.publishToMavenLocal)
 }
 
-if(project.hasProperty("bintrayUser") && project.hasProperty("bintrayKey")) {
+val bintrayUser: String by project
+val bintrayKey: String by project
+val platform: String by project
+
+if(project.hasProperty("bintrayUser") && project.hasProperty("bintrayKey")
+        && project.hasProperty("platform")) {
     bintray {
         user = bintrayUser
         key = bintrayKey
-        setPublications("kotlinMultiplatform", "metadata", "linux")
+        setPublications(platform)
         pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
             userOrg = "utopia-rise"
             repo = "kotlin-godot"
-            
-            name = "godot-library"
+
+            name = "${project.name}-$platform"
             vcsUrl = "https://github.com/utopia-rise/kotlin-godot-wrapper"
             setLicenses("Apache-2.0")
             version(closureOf<com.jfrog.bintray.gradle.BintrayExtension.VersionConfig> {
                 this.name = project.version.toString()
                 released = Date().toString()
-                description = "Godot library ${project.version.toString()}"
+                description = "Godot library ${project.version}"
                 vcsTag = project.version.toString()
             })
         })

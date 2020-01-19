@@ -10,7 +10,8 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
     export JAVA_HOME=${JAVA_HOME:-/c/jdk}
     && export PATH=${JAVA_HOME}/bin:${PATH}
-    && choco install jdk8 -params 'installdir=c:\\jdk' -y;
+    && choco install jdk8 -params 'installdir=c:\\jdk' -y
+    && export GRADLE_OPTS=-Dorg.gradle.daemon=false;
     fi
 install:
   - ./gradlew :tools:api-classes-generator:build

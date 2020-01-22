@@ -6,6 +6,8 @@ include(":tools:entry-generator")
 include(":tools:godot-gradle-plugin")
 include(":tools:annotations")
 include(":tools:godot-annotation-processor")
+include(":tools:kotlin-compiler-plugin")
+include(":tools:kotlin-compiler-native-plugin")
 //include("samples:games:kotlin") //TODO: uncomment once CI/CD is done
 //include(":samples:coroutines:kotlin") //TODO: uncomment once CI/CD is done
 enableFeaturePreview("GRADLE_METADATA")

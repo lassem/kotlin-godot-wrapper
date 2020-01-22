@@ -4,6 +4,7 @@ buildscript {
     repositories {
         mavenLocal()
         jcenter()
+        mavenCentral()
     }
 }
 
@@ -12,6 +13,7 @@ plugins {
     id("maven-publish")
     id("org.jetbrains.kotlin.jvm")
     id("com.jfrog.bintray")
+    id("kotlin-kapt")
 }
 
 group = "org.godotengine.kotlin"
@@ -21,7 +23,7 @@ gradlePlugin {
     plugins {
         create("godotGradlePlugin") {
             id = "godot-gradle-plugin"
-            implementationClass = "godot.gradle.plugin.KotlinGodotPlugin"
+            implementationClass = "org.godotengine.kotlin.gradleplugin.KotlinGodotPlugin"
         }
     }
 }
@@ -32,6 +34,9 @@ dependencies {
     implementation(project(":tools:entry-generator"))
     implementation("org.jetbrains.kotlin:kotlin-native-utils:1.3.61")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61")
+
+    compileOnly("com.google.auto.service:auto-service:1.0-rc6")
+    kapt("com.google.auto.service:auto-service:1.0-rc6")
 }
 
 repositories {

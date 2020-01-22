@@ -1,33 +1,26 @@
 plugins {
     id("org.jetbrains.kotlin.jvm")
-    id("maven")
     id("kotlin-kapt")
+    id("maven")
 }
 
 group = "org.godotengine.kotlin"
 version = "0.0.1-SNAPSHOT"
 
-repositories {
-    mavenLocal()
-    jcenter()
-    mavenCentral()
-}
-
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-    implementation(project(":tools:annotations"))
+    implementation(project(":tools:godot-annotation-processor"))
     implementation("de.jensklingenberg:mpapt-runtime:0.8.4-SNAPSHOT") //TODO: bump
-    implementation("com.squareup:kotlinpoet:1.5.0")
-
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compileOnly("org.jetbrains.kotlin:kotlin-compiler-embeddable")
     compileOnly("com.google.auto.service:auto-service:1.0-rc6")
     kapt("com.google.auto.service:auto-service:1.0-rc6")
 }
 
-kapt {
-    includeCompileClasspath = true
+tasks.build {
+    dependsOn(":tools:godot-annotation-processor:install")
+    finalizedBy(tasks.install)
 }
 
-tasks.build {
-    finalizedBy(tasks.install)
+kapt {
+    includeCompileClasspath = true
 }

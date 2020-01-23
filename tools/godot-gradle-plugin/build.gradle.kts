@@ -28,15 +28,16 @@ gradlePlugin {
     }
 }
 
-//TODO: these are overrides because somehow from somewhere the versions 1.3.30 are used which dont work in gradle 6.0.1 with kotlin 1.3.61. Find out from where those versions come and fix it there and then remove this block. (hint: use gradle :dependencies task)
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation(project(":tools:entry-generator"))
-    implementation("org.jetbrains.kotlin:kotlin-native-utils:${Dependencies.kotlinVersion}")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${Dependencies.kotlinVersion}")
 
     compileOnly("com.google.auto.service:auto-service:${Dependencies.googleAutoServiceVersion}")
     kapt("com.google.auto.service:auto-service:${Dependencies.googleAutoServiceVersion}")
+
+    //TODO: these are overrides because of the old klaxon dependency in entry-generator. I don't bother upgrading it as it will be replaced soon enough anyways. Once done, the following two lines can be removed
+    implementation("org.jetbrains.kotlin:kotlin-native-utils:${Dependencies.kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${Dependencies.kotlinVersion}")
 }
 
 repositories {
@@ -53,7 +54,7 @@ tasks.build {
 val bintrayUser: String by project
 val bintrayKey: String by project
 
-if(project.hasProperty("bintrayUser") && project.hasProperty("bintrayKey")) {
+if (project.hasProperty("bintrayUser") && project.hasProperty("bintrayKey")) {
     bintray {
         user = bintrayUser
         key = bintrayKey

@@ -24,12 +24,12 @@ class RegisterAnnotationProcessor : AbstractProcessor() {
     }
 
     override fun initProcessor() {
-        log("***Processor started***") //TODO: remove when done with developing
+        log("***Processor started***") //TODO: remove when done with developing the code generation
     }
 
     override fun process(roundEnvironment: RoundEnvironment) {
         val generatedDirectory = getKaptGeneratedDirectory()
-        log("Starting to process \"Register\" annotations") //TODO: remove when done with developing
+        log("Starting to process \"Register\" annotations") //TODO: remove when done with developing the code generation
 
         roundEnvironment.getElementsAnnotatedWith(Register::class.java.name).forEach {
             log("${it.simpleName} is annotated with Register")
@@ -37,12 +37,12 @@ class RegisterAnnotationProcessor : AbstractProcessor() {
 
         //code generation logic
 
-        log("Finished processing \"Register\" annotations") //TODO: remove when done with developing
+        log("Finished processing \"Register\" annotations") //TODO: remove when done with developing the code generation
     }
 
     override fun processingOver() {
         //write generated code logic
-        log("***Processor over***") //TODO: remove when done with developing
+        log("***Processor over***") //TODO: remove when done with developing the code generation
     }
 
     /**

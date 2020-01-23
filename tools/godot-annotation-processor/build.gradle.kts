@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "org.godotengine.kotlin"
-version = "0.0.1-SNAPSHOT"
+version = Dependencies.godotAnnotationProcessorVersion
 
 repositories {
     mavenLocal()
@@ -16,12 +16,12 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(project(":tools:annotations"))
-    implementation("de.jensklingenberg:mpapt-runtime:0.8.4-SNAPSHOT") //TODO: bump
-    implementation("com.squareup:kotlinpoet:1.5.0")
+    implementation("de.jensklingenberg:mpapt-runtime:${Dependencies.mpaptVersion}")
+    implementation("com.squareup:kotlinpoet:${Dependencies.kotlinPoetVersion}")
 
     compileOnly("org.jetbrains.kotlin:kotlin-compiler-embeddable")
-    compileOnly("com.google.auto.service:auto-service:1.0-rc6")
-    kapt("com.google.auto.service:auto-service:1.0-rc6")
+    compileOnly("com.google.auto.service:auto-service:${Dependencies.googleAutoServiceVersion}")
+    kapt("com.google.auto.service:auto-service:${Dependencies.googleAutoServiceVersion}")
 }
 
 kapt {

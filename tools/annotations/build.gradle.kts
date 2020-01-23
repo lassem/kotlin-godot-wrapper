@@ -10,7 +10,7 @@ repositories {
 }
 
 group = "org.godotengine.kotlin"
-version = "0.0.1-SNAPSHOT"
+version = Dependencies.annotationsVersion
 
 kotlin {
     jvm()

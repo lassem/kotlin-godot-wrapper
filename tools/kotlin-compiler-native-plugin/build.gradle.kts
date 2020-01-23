@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.github.jengelman.gradle.plugins:shadow:5.0.0")
+        classpath("com.github.jengelman.gradle.plugins:shadow:${Dependencies.shadowJarPluginVersion}")
     }
 }
 
@@ -19,15 +19,15 @@ plugins {
 apply(plugin = "com.github.johnrengelman.shadow")
 
 group = "org.godotengine.kotlin"
-version = "0.0.1-SNAPSHOT"
+version = Dependencies.kotlinNativeCompilerPluginVersion
 
 dependencies {
     implementation(project(":tools:godot-annotation-processor"))
-    implementation("de.jensklingenberg:mpapt-runtime:0.8.4-SNAPSHOT") //TODO: bump
+    implementation("de.jensklingenberg:mpapt-runtime:${Dependencies.mpaptVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     compileOnly("org.jetbrains.kotlin:kotlin-compiler")
-    compileOnly("com.google.auto.service:auto-service:1.0-rc6")
-    kapt("com.google.auto.service:auto-service:1.0-rc6")
+    compileOnly("com.google.auto.service:auto-service:${Dependencies.googleAutoServiceVersion}")
+    kapt("com.google.auto.service:auto-service:${Dependencies.googleAutoServiceVersion}")
 }
 
 val fatJar = task<Jar>("fatJar") {
@@ -36,8 +36,8 @@ val fatJar = task<Jar>("fatJar") {
         attributes["Implementation-Version"] = project.version
         attributes["Main-Class"] = "org.godotengine.kotlin.compilerplugin.NativeComponentRegistrar"
     }
-    baseName = "kotlin-compiler-native-plugin"
-    version = project.version.toString()
+    archiveBaseName.set("kotlin-compiler-native-plugin")
+    archiveVersion.set(project.version.toString())
 
     from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
     with(tasks["jar"] as CopySpec)
@@ -45,9 +45,10 @@ val fatJar = task<Jar>("fatJar") {
 
 val shadowJar by tasks.getting(com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar::class) {
     manifest.inheritFrom(fatJar.manifest)
-    baseName = "kotlin-compiler-native-plugin"
-    version = project.version.toString()
-    classifier = null
+    archiveBaseName.set("kotlin-compiler-native-plugin")
+    archiveVersion.set(project.version.toString())
+    val classifier: String? = null //needed as we need to specify the type null represents. otherwise we get ambiguous overload exception during build
+    archiveClassifier.set(classifier)
 }
 
 publishing {

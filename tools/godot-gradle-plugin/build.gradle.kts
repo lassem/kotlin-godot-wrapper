@@ -17,7 +17,7 @@ plugins {
 }
 
 group = "org.godotengine.kotlin"
-version = "1.0.1"
+version = Dependencies.godotGradlePluginVersion
 
 gradlePlugin {
     plugins {
@@ -32,11 +32,11 @@ gradlePlugin {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation(project(":tools:entry-generator"))
-    implementation("org.jetbrains.kotlin:kotlin-native-utils:1.3.61")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61")
+    implementation("org.jetbrains.kotlin:kotlin-native-utils:${Dependencies.kotlinVersion}")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${Dependencies.kotlinVersion}")
 
-    compileOnly("com.google.auto.service:auto-service:1.0-rc6")
-    kapt("com.google.auto.service:auto-service:1.0-rc6")
+    compileOnly("com.google.auto.service:auto-service:${Dependencies.googleAutoServiceVersion}")
+    kapt("com.google.auto.service:auto-service:${Dependencies.googleAutoServiceVersion}")
 }
 
 repositories {

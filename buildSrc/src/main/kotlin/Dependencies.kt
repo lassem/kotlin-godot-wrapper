@@ -2,7 +2,7 @@ object Dependencies {
     //external dependencies
     const val kotlinVersion = "1.3.61"
     const val bintrayPluginVersion = "1.8.4"
-    const val mpaptVersion = "0.8.4-SNAPSHOT"  //TODO: bump
+    const val mpaptVersion = "0.8.4"
     const val googleAutoServiceVersion = "1.0-rc6"
     const val shadowJarPluginVersion = "5.0.0"
     const val kotlinPoetVersion = "1.5.0"

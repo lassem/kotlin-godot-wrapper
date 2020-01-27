@@ -15,6 +15,10 @@ repositories {
 group = "org.godotengine.kotlin"
 version = Dependencies.annotationsVersion
 
+val bintrayUser: String by project
+val bintrayKey: String by project
+val platform: String by project
+
 kotlin {
     if (project.hasProperty("platform")) {
         when (platform) {
@@ -48,10 +52,6 @@ kotlin {
 tasks.build {
     finalizedBy(tasks.publishToMavenLocal)
 }
-
-val bintrayUser: String by project
-val bintrayKey: String by project
-val platform: String by project
 
 if (project.hasProperty("bintrayUser") && project.hasProperty("bintrayKey") && project.hasProperty("platform")) {
     bintray {

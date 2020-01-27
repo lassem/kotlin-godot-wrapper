@@ -16,10 +16,20 @@ group = "org.godotengine.kotlin"
 version = Dependencies.annotationsVersion
 
 kotlin {
-    jvm()
-    linuxX64("linux")
-    mingwX64("windows")
-    macosX64("macos")
+    if (project.hasProperty("platform")) {
+        when (platform) {
+            "windows" -> mingwX64("windows")
+            "linux" -> linuxX64("linux")
+            "macos" -> macosX64("macos")
+            else -> linuxX64("linux")
+        }
+    } else {
+        linuxX64("linux")
+        mingwX64("windows")
+        macosX64("macos")
+        jvm()
+    }
+
 
     sourceSets {
         commonMain {

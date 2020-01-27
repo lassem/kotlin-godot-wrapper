@@ -41,9 +41,11 @@ kotlin {
                 implementation(kotlin("stdlib-common"))
             }
         }
-        configure(listOf(sourceSets["jvmMain"])) {
-            dependencies {
-                implementation(kotlin("stdlib-jdk8"))
+        if (!project.hasProperty("platform")) {
+            configure(listOf(sourceSets["jvmMain"])) {
+                dependencies {
+                    implementation(kotlin("stdlib-jdk8"))
+                }
             }
         }
     }

@@ -1,3 +1,5 @@
+import java.util.*
+
 buildscript {
     repositories {
         mavenLocal()
@@ -14,6 +16,7 @@ plugins {
     id("kotlin-kapt")
     id("maven")
     id("maven-publish")
+    id("com.jfrog.bintray")
 }
 
 apply(plugin = "com.github.johnrengelman.shadow")
@@ -72,4 +75,30 @@ tasks.build {
 
 kapt {
     includeCompileClasspath = true
+}
+
+val bintrayUser: String by project
+val bintrayKey: String by project
+
+if (project.hasProperty("bintrayUser") && project.hasProperty("bintrayKey")) {
+    bintray {
+        user = bintrayUser
+        key = bintrayKey
+
+        setPublications("godotCompilerNativePlugin")
+        pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
+            userOrg = "utopia-rise"
+            repo = "kotlin-godot"
+
+            name = project.name
+            vcsUrl = "https://github.com/utopia-rise/kotlin-godot-wrapper"
+            setLicenses("Apache-2.0")
+            version(closureOf<com.jfrog.bintray.gradle.BintrayExtension.VersionConfig> {
+                this.name = project.version.toString()
+                released = Date().toString()
+                description = "Godot Kotlin Compiler native Plugin ${project.version}"
+                vcsTag = project.version.toString()
+            })
+        })
+    }
 }

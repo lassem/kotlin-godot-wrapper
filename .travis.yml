@@ -26,6 +26,10 @@ install:
     ./gradlew :wrapper:godot-library-extension:build -Pplatform=$TRAVIS_OS_NAME;
     fi
   - ./gradlew :tools:godot-gradle-plugin:build
+  - ./gradlew :tools:annotations:build
+  - ./gradlew :tools:godot-annotation-processor:build
+  - ./gradlew :tools:kotlin-compiler-plugin:build
+  - ./gradlew :tools:kotlin-compiler-native-plugin:build
 deploy:
   - provider: script
     script: bash .travis/deploy.sh $BINTRAY_USER $BINTRAY_KEY $TRAVIS_OS_NAME

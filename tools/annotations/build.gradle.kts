@@ -41,18 +41,18 @@ tasks.build {
 
 val bintrayUser: String by project
 val bintrayKey: String by project
+val platform: String by project
 
-if (project.hasProperty("bintrayUser") && project.hasProperty("bintrayKey")) {
+if (project.hasProperty("bintrayUser") && project.hasProperty("bintrayKey") && project.hasProperty("platform")) {
     bintray {
         user = bintrayUser
         key = bintrayKey
-
-        setPublications("annotations")
+        setPublications(platform)
         pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
             userOrg = "utopia-rise"
-            repo = "kotlin-godot"
+            repo = "annotations"
 
-            name = project.name
+            name = "${project.name}-$platform"
             vcsUrl = "https://github.com/utopia-rise/kotlin-godot-wrapper"
             setLicenses("Apache-2.0")
             version(closureOf<com.jfrog.bintray.gradle.BintrayExtension.VersionConfig> {

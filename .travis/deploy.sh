@@ -2,7 +2,7 @@
 if [ $3 == "linux" ]; then
   ./gradlew :tools:entry-generator:bintrayUpload -PbintrayUser=$1 -PbintrayKey=$2
   ./gradlew :tools:api-classes-generator:bintrayUpload -PbintrayUser=$1 -PbintrayKey=$2
-  ./gradlew :wrapper:annotations:bintrayUpload -PbintrayUser=$1 -PbintrayKey=$2 -Pplatform=kotlinMultiplatform
+  ./gradlew :tools:annotations:bintrayUpload -PbintrayUser=$1 -PbintrayKey=$2 -Pplatform=kotlinMultiplatform
   ./gradlew :wrapper:annotations:bintrayUpload -PbintrayUser=$1 -PbintrayKey=$2 -Pplatform=metadata
   ./gradlew :tools:annotation-processor:bintrayUpload -PbintrayUser=$1 -PbintrayKey=$2
   ./gradlew :tools:kotlin-compiler-plugin:bintrayUpload -PbintrayUser=$1 -PbintrayKey=$2

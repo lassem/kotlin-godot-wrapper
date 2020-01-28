@@ -68,8 +68,6 @@ repositories {
     mavenLocal()
     jcenter()
 }
-
-rootProject.name = "projectname"
 ```
 
 
@@ -178,8 +176,6 @@ repositories {
     mavenLocal()
     jcenter()
 }
-
-rootProject.name = "projectname"
 
 kotlin {
     sourceSets {
